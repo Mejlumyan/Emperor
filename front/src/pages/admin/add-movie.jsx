@@ -50,10 +50,7 @@ export const AddMovie = () => {
     fetchCinemas();
   }, [t]);
 
-  const handleFileChange = (
-    e,
-    type,
-  ) => {
+  const handleFileChange = (e, type) => {
     const file = e.target.files?.[0];
     if (file) {
       setFiles((prev) => ({ ...prev, [type]: file }));
