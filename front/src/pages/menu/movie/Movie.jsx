@@ -1,20 +1,19 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Axios, API_URL } from "../../../config/axios";
-import type { IMovie } from "../../../types/type";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, Star, ChevronLeft, ArrowRight, X, Calendar, Clock } from "lucide-react";
 import { useMovieTranslation } from "../../../hooks/useMovieTranslation";
 
 export const Movie = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams();
   const navigate = useNavigate();
   const { getMovieTitle, t } = useMovieTranslation();
 
-  const [movie, setMovie] = useState<IMovie | null>(null);
+  const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showTrailer, setShowTrailer] = useState(false);
-  const [trailerUrl, setTrailerUrl] = useState<string | null>(null);
+  const [trailerUrl, setTrailerUrl] = useState(null);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -30,7 +29,7 @@ export const Movie = () => {
     if (id) fetchMovieDetails();
   }, [id]);
 
-  const getFullImageUrl = (path: string) => {
+  const getFullImageUrl = (path) => {
     if (!path) return "";
     const cleanPath = path.startsWith("/") ? path : `/${path}`;
     return `${API_URL}${cleanPath}`;

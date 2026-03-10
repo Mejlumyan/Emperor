@@ -1,22 +1,14 @@
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  type ChangeEvent,
-  useMemo,
-  useState,
-} from "react";
+import { useMemo, useState } from "react";
 import { Card } from "./Card";
-import { CARD_CONFIG, INPUT_CONFIG, type State } from "../../types/type";
+import { CARD_CONFIG, INPUT_CONFIG } from "../../types/type";
 import { formatCVC, formatCreditCardNumber, formatExpirationDate } from "../../utils/utils";
 import { Axios } from "../../config/axios";
 import { toast } from "react-hot-toast";
 import { MoveRight } from "lucide-react";
 
-interface Props {
-  onSuccess: () => void;
-}
-
-export const CreditCardForm = ({ onSuccess }: Props) => {
-  const [state, setState] = useState<State>({
+export const CreditCardForm = ({ onSuccess }) => {
+  const [state, setState] = useState({
     issuer: "",
     cvc: "",
     expiry: "",
@@ -26,7 +18,7 @@ export const CreditCardForm = ({ onSuccess }: Props) => {
   const [depositAmount, setDepositAmount] = useState("");
   const [isCvcFocused, setIsCvcFocused] = useState(false);
 
-  const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (evt) => {
     const { name, value } = evt.target;
     let formattedValue = value;
     if (name === "number") {
@@ -39,7 +31,7 @@ export const CreditCardForm = ({ onSuccess }: Props) => {
     setState((prev) => ({ ...prev, [name]: formattedValue }));
   };
 
-  const handleCallback = (type: string, isValid: boolean) => {
+  const handleCallback = (type, isValid) => {
     if (type === "cvc") {
       setIsCvcFocused(isValid);
     }

@@ -28,14 +28,10 @@ export const AddMovie = () => {
     showTime: "",
   });
 
-  const [cinemas, setCinemas] = useState<any[]>([]);
+  const [cinemas, setCinemas] = useState([]);
   const [isCinemasLoading, setIsCinemasLoading] = useState(true);
   const [previews, setPreviews] = useState({ poster: "", banner: "" });
-  const [files, setFiles] = useState<{
-    poster: File | null;
-    banner: File | null;
-    video: File | null;
-  }>({ poster: null, banner: null, video: null });
+  const [files, setFiles] = useState({ poster: null, banner: null, video: null });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -54,10 +50,7 @@ export const AddMovie = () => {
     fetchCinemas();
   }, [t]);
 
-  const handleFileChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: "poster" | "banner" | "video",
-  ) => {
+  const handleFileChange = (e, type) => {
     const file = e.target.files?.[0];
     if (file) {
       setFiles((prev) => ({ ...prev, [type]: file }));
@@ -67,7 +60,7 @@ export const AddMovie = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!formData.cinemaId || formData.cinemaId === "") {
@@ -100,7 +93,7 @@ export const AddMovie = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
       alert(t("movie_published_success"));
-    } catch (err: any) {
+    } catch (err) {
       console.error(t("upload_error"), err.response?.data || err);
       alert(err.response?.data?.message || t("upload_failed_check_console"));
     } finally {
@@ -152,7 +145,7 @@ export const AddMovie = () => {
                   label={t("feature_title")}
                   placeholder={t("interstellar")}
                   icon={<FilmIcon className="w-5 h-5 text-red-600" />}
-                  onChange={(val: string) =>
+                  onChange={(val) =>
                     setFormData({ ...formData, title: val })
                   }
                 />
@@ -201,7 +194,7 @@ export const AddMovie = () => {
                     label={t("primary_genre")}
                     placeholder={t("scifi_adventure")}
                     icon={<TagIcon className="w-5 h-5 text-red-600" />}
-                    onChange={(val: string) =>
+                    onChange={(val) =>
                       setFormData({ ...formData, genre: val })
                     }
                   />
@@ -210,7 +203,7 @@ export const AddMovie = () => {
                     placeholder={t("rating_example")}
                     type="number"
                     icon={<StarIcon className="w-5 h-5 text-red-600" />}
-                    onChange={(val: string) =>
+                    onChange={(val) =>
                       setFormData({ ...formData, rating: val })
                     }
                   />
@@ -219,7 +212,7 @@ export const AddMovie = () => {
                     placeholder={t("price_example")}
                     type="number"
                     icon={<TicketIcon className="w-5 h-5 text-red-600" />}
-                    onChange={(val: string) =>
+                    onChange={(val) =>
                       setFormData({ ...formData, price: val })
                     }
                   />
@@ -408,13 +401,13 @@ export const AddMovie = () => {
                   label={t("vertical_key_art")}
                   aspect="aspect-[2/3]"
                   preview={previews.poster}
-                  onChange={(e: any) => handleFileChange(e, "poster")}
+                  onChange={(e) => handleFileChange(e, "poster")}
                 />
                 <AssetUpload
                   label={t("cinematic_banner")}
                   aspect="aspect-video"
                   preview={previews.banner}
-                  onChange={(e: any) => handleFileChange(e, "banner")}
+                  onChange={(e) => handleFileChange(e, "banner")}
                 />
               </div>
             </div>
@@ -446,7 +439,7 @@ export const AddMovie = () => {
 
 // --- Helper Components ---
 
-const SectionHeader = ({ title, step }: { title: string; step: string }) => (
+const SectionHeader = ({ title, step }) => (
   <div className="flex items-center gap-4">
     <span className="text-red-600 font-black italic text-2xl">{step}</span>
     <div className="h-[1px] w-8 bg-red-600" />
@@ -462,7 +455,7 @@ const FloatingInput = ({
   placeholder,
   type = "text",
   onChange,
-}: any) => (
+}) => (
   <div className="relative group">
     <div className="absolute -inset-0.5 bg-gradient-to-r from-red-600/20 to-transparent rounded-3xl opacity-0 group-focus-within:opacity-100 transition-all" />
     <div className="relative bg-zinc-50 dark:bg-black/40 border-2 border-zinc-200 dark:border-white/5 rounded-3xl p-6 flex items-center gap-6 group-focus-within:border-red-600/40 transition-all">
@@ -484,7 +477,7 @@ const FloatingInput = ({
   </div>
 );
 
-const AssetUpload = ({ label, aspect, preview, onChange }: any) => (
+const AssetUpload = ({ label, aspect, preview, onChange }) => (
   <div
     className={`relative ${aspect} rounded-[40px] overflow-hidden border-2 border-dashed border-zinc-200 dark:border-white/10 hover:border-red-600/50 transition-all duration-700 group bg-zinc-50 dark:bg-white/[0.01]`}
   >

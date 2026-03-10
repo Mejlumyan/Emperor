@@ -6,8 +6,8 @@ import { API_URL } from "../../config/axios";
 import { useMovieTranslation } from "../../hooks/useMovieTranslation"; // 1. Ներմուծում ենք Hook-ը
 
 export const Home = () => {
-  const [movies, setMovies] = useState<any[]>([]);
-  const [heroMovies, setHeroMovies] = useState<any[]>([]);
+  const [movies, setMovies] = useState([]);
+  const [heroMovies, setHeroMovies] = useState([]);
   const [imgIndex, setImgIndex] = useState(0);
   const [loading, setLoading] = useState(true);
 
@@ -45,7 +45,7 @@ export const Home = () => {
     }
   }, [heroMovies.length]);
 
-  const getFullImageUrl = (path: string) => {
+  const getFullImageUrl = (path) => {
     if (!path) return "";
     if (path.startsWith("http")) return path;
     const cleanPath = path.startsWith("/") ? path : `/${path}`;
@@ -100,7 +100,7 @@ export const Home = () => {
                   {/* 3. ԱՎՏՈՄԱՏ ԹԱՐԳՄԱՆՎՈՂ TITLE */}
                   {getMovieTitle(currentHeroMovie.title)
                     .split("")
-                    .map((char: string, index: number, arr: string[]) => (
+                    .map((char, index, arr) => (
                       <motion.span
                         key={index}
                         variants={{

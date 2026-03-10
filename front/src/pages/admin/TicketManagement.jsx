@@ -17,36 +17,11 @@ import {
 } from "@heroicons/react/24/outline";
 import { Axios } from "../../config/axios";
 
-interface Ticket {
-  _id: string;
-  ticketId: string;
-  user: {
-    name: string;
-    email: string;
-  };
-  movie: {
-    title: string;
-  };
-  cinema: {
-    name: string;
-  };
-  seat: {
-    numbering: number;
-    types: string;
-    x: number;
-    y: number;
-  };
-  price: number;
-  status: "active" | "used" | "cancelled";
-  qrData: string;
-  createdAt: string;
-}
-
 export const TicketManagement = () => {
   const { t } = useTranslation();
-  const [tickets, setTickets] = useState<Ticket[]>([]);
+  const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [qrCodes, setQrCodes] = useState<{ [key: string]: string }>({});
+  const [qrCodes, setQrCodes] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [ticketsPerPage, setTicketsPerPage] = useState(10);
 
@@ -78,7 +53,7 @@ export const TicketManagement = () => {
         return;
       }
 
-      const qrCodePromises = ticketsArray.map(async (ticket: Ticket) => {
+      const qrCodePromises = ticketsArray.map(async (ticket) => {
         try {
           if (ticket && ticket.qrData && ticket.qrData.trim() !== "") {
             const qrDataUrl = await QRCode.toDataURL(ticket.qrData);
@@ -109,9 +84,9 @@ export const TicketManagement = () => {
   const currentTickets = tickets.slice(indexOfFirstTicket, indexOfLastTicket);
   const totalPages = Math.ceil(tickets.length / ticketsPerPage);
 
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const validateTicket = async (ticketId: string) => {
+  const validateTicket = async (ticketId) => {
     try {
       await Axios.patch(`/admin/bookings/${ticketId}/validate`);
       toast.success("Ticket validated successfully");

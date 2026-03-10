@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Axios } from "../../config/axios";
-import type { IUser } from "../../types/type";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   User,
@@ -19,9 +18,9 @@ import {
 } from "lucide-react";
 
 export const Users = () => {
-  const [users, setUsers] = useState<IUser[]>([]);
-  const [editingUser, setEditingUser] = useState<IUser | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [users, setUsers] = useState([]);
+  const [editingUser, setEditingUser] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const fetchUsers = async () => {
     try {
@@ -37,7 +36,7 @@ export const Users = () => {
     fetchUsers();
   }, []);
 
-  const deleteUser = (id: string) => {
+  const deleteUser = (id) => {
     if (!window.confirm("Terminate personnel access?")) return;
     Axios.delete(`/admin/user/${id}`)
       .then(() => {
@@ -46,7 +45,7 @@ export const Users = () => {
       .catch((err) => console.error("Axios Error:", err.message));
   };
 
-  const handleUpdate = async (e: React.FormEvent) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
     if (!editingUser) return;
     try {

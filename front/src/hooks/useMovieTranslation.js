@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 export const useMovieTranslation = () => {
   const { t } = useTranslation();
 
-  const getMovieTitle = (title: string) => {
+  const getMovieTitle = (title) => {
     if (!title) return "";
 
     const movieKey = title
@@ -16,7 +16,7 @@ export const useMovieTranslation = () => {
     return t(`movies_data.${movieKey}_title`, { defaultValue: title });
   };
 
-  const getMovieDesc = (title: string, defaultDesc: string) => {
+  const getMovieDesc = (title, defaultDesc) => {
     if (!title) return defaultDesc;
     const movieKey = title
       .toLowerCase()

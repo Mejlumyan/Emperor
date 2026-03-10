@@ -80,14 +80,7 @@ export const Admin = () => {
   );
 };
 
-interface ITabProps {
-  to: string;
-  label: string;
-  icon: React.ReactNode;
-  active: boolean;
-}
-
-const AdminTab = ({ to, label, icon, active }: ITabProps) => (
+const AdminTab = ({ to, label, icon, active }) => (
   <Link to={to} className="relative">
     <motion.div
       whileHover={{ scale: 1.05 }}

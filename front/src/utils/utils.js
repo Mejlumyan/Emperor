@@ -1,9 +1,9 @@
-import { CARD_CONFIG as ICardConfig, CardName } from "../types/type";
+import { CARD_CONFIG, CardName } from "../types/type";
 
 /**
  * Կառուցում է նկարի ամբողջական URL-ը:
  */
-export const getImageUrl = (path?: string): string => {
+export const getImageUrl = (path) => {
   if (!path) {
     return "";
   }
@@ -21,10 +21,7 @@ export const getImageUrl = (path?: string): string => {
  * Որոշում է քարտի տեսակը (Visa, MasterCard, Amex):
  * Ուղղված է card.regex.test սխալը:
  */
-export const getCardType = (
-  number: string,
-  config: ICardConfig[],
-): CardName | null => {
+export const getCardType = (number, config) => {
   const cleanNumber = number.replace(/\s+/g, "");
 
   if (!cleanNumber) return null;
@@ -45,7 +42,7 @@ export const getCardType = (
 /**
  * Ֆորմատավորում է քարտի համարը (#### #### #### ####)
  */
-export const formatCreditCardNumber = (value: string): string => {
+export const formatCreditCardNumber = (value) => {
   const cleanValue = value.replace(/\D/g, ""); // Հեռացնում ենք ամեն ինչ, բացի թվերից
   const parts = [];
 
@@ -63,7 +60,7 @@ export const formatCreditCardNumber = (value: string): string => {
 /**
  * Ֆորմատավորում է վավերականության ժամկետը (MM/YY)
  */
-export const formatExpirationDate = (value: string): string => {
+export const formatExpirationDate = (value) => {
   const cleanValue = value.replace(/\D/g, "");
   if (cleanValue.length >= 3) {
     return `${cleanValue.slice(0, 2)}/${cleanValue.slice(2, 4)}`;
@@ -74,7 +71,7 @@ export const formatExpirationDate = (value: string): string => {
 /**
  * Ֆորմատավորում է CVC կոդը
  */
-export const formatCVC = (value: string): string => {
+export const formatCVC = (value) => {
   const cleanValue = value.replace(/\D/g, "");
   return cleanValue.slice(0, 4);
 };

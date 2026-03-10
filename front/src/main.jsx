@@ -4,12 +4,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { routes } from "./config/react-router";
 import "./index.css";
-import type { AppRoute } from "./config/react-router";
 import './i18n'; 
 const GOOGLE_CLIENT_ID =
   "709964897187-an6sclll2kfpfm4c3umc3bu4cnv0up4r.apps.googleusercontent.com";
 
-const renderRoutes = (allRoutes: AppRoute[]) => {
+const renderRoutes = (allRoutes) => {
   return allRoutes.map((route, index) => {
     const { children, element, ...routeProps } = route;
     return (
@@ -24,7 +23,7 @@ const renderRoutes = (allRoutes: AppRoute[]) => {
   });
 };
 
-createRoot(document.getElementById("root")!).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <BrowserRouter>

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Axios } from "../../config/axios";
-import type { IMovie } from "../../types/type";
 import {
   Trash2,
   AlertCircle,
@@ -21,12 +20,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { API_URL } from "../../config/axios";
 
 const MovieList = () => {
-  const [movies, setMovies] = useState<IMovie[]>([]);
-  const [cinemas, setCinemas] = useState<any[]>([]); // Դահլիճների state
+  const [movies, setMovies] = useState([]);
+  const [cinemas, setCinemas] = useState([]); // Դահլիճների state
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editingMovie, setEditingMovie] = useState<IMovie | null>(null);
+  const [editingMovie, setEditingMovie] = useState(null);
 
   useEffect(() => {
     fetchMovies();
@@ -53,7 +52,7 @@ const MovieList = () => {
     }
   };
 
-  const getImageUrl = (path: string) => {
+  const getImageUrl = (path) => {
     if (!path) return "";
     if (path.startsWith("http")) return path;
     const cleanPath = path.replace("/not/", "/");
@@ -61,7 +60,7 @@ const MovieList = () => {
     return `${API_URL}${finalPath}`;
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to remove this title?")) return;
     setLoading(true);
     try {
@@ -76,12 +75,12 @@ const MovieList = () => {
     }
   };
 
-  const handleEdit = (movie: IMovie) => {
+  const handleEdit = (movie) => {
     setEditingMovie({ ...movie });
     setIsEditModalOpen(true);
   };
 
-  const handleUpdate = async (e: React.FormEvent) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
     if (!editingMovie) return;
     setLoading(true);

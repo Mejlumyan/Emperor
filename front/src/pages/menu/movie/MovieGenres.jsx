@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Axios, API_URL } from "../../../config/axios";
-import type { IMovie } from "../../../types/type";
 import { motion } from "framer-motion";
 import { ChevronLeft, PlayCircle } from "lucide-react";
 
 export const MovieGenre = () => {
-    const { genreName } = useParams<{ genreName: string }>();
-    const [movies, setMovies] = useState<IMovie[]>([]);
+    const { genreName } = useParams();
+    const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
@@ -16,7 +15,7 @@ export const MovieGenre = () => {
             try {
                 setLoading(true);
                 const res = await Axios.get("/movie");
-                const allMovies: IMovie[] = res.data.data || res.data;
+                const allMovies = res.data.data || res.data;
 
                 if (genreName?.toLowerCase() === "all") {
                     setMovies(allMovies);
