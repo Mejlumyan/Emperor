@@ -3,9 +3,28 @@ export const CardName = {
   MASTERCARD: "Mastercard",
   AMERICAN_EXPRESS: "American Express",
   UNKNOWN: "Card",
+} as const;
+
+export type CardNameType = (typeof CardName)[keyof typeof CardName];
+
+export interface InputConfig {
+  id: string;
+  name: string;
+  placeholder: string;
+  type: string;
+  maxLength: number;
+  pattern?: string;
 }
 
-export const INPUT_CONFIG = [
+export interface CardConfig {
+  name: CardNameType;
+  regex: string;
+  pattern: string;
+  card_length: number;
+  cvc_length: number;
+}
+
+export const INPUT_CONFIG: InputConfig[] = [
   {
     id: "card-holder",
     name: "name",
@@ -39,7 +58,7 @@ export const INPUT_CONFIG = [
   },
 ];
 
-export const CARD_CONFIG = [
+export const CARD_CONFIG: CardConfig[] = [
   {
     name: CardName.VISA,
     regex: "^4",
