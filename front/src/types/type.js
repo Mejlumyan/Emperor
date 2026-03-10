@@ -1,52 +1,8 @@
-export interface IMovie {
-  _id: string;
-  title: string;
-  description: string;
-  posterUrl: string;
-  imageUrl: string;
-  videoUrl: string;
-  genre: string;
-  rating: number;
-  
-  cinema: string; 
-  price: number;
-  releaseDate: string;
-  showTime?: string;
-}
-
-export interface IUser {
-  _id : string,
-  name : string,
-  email: string,
-  login: string,
-  password: string
-  role: string
-}
-
 export const CardName = {
   VISA: "Visa",
   MASTERCARD: "Mastercard",
   AMERICAN_EXPRESS: "American Express",
   UNKNOWN: "Card",
-} as const;
-
-export type CardName = (typeof CardName)[keyof typeof CardName];
-
-export interface Card {
-  name: CardName;
-  regex: string;
-  pattern: string;
-  card_length: number;
-  cvc_length: number;
-}
-
-export interface State {
-  issuer: string;
-  cvc: string;
-  expiry: string;
-  name: string;
-  number: string;
-  [key: string]: string;
 }
 
 export const INPUT_CONFIG = [
@@ -81,9 +37,9 @@ export const INPUT_CONFIG = [
     pattern: "d*",
     maxLength: 4,
   },
-] as const;
+];
 
-export const CARD_CONFIG: Card[] = [
+export const CARD_CONFIG = [
   {
     name: CardName.VISA,
     regex: "^4",

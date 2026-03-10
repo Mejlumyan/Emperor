@@ -8,7 +8,7 @@ import { API_URL } from "../../../config/axios";
 
 export const Search = () => {
   const [title, setTitle] = useState("");
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export const Search = () => {
   }, [title]);
 
  
-  const getSearchImageUrl = (path: string) => {
+  const getSearchImageUrl = (path) => {
     if (!path) return "";
     if (path.startsWith("http")) return path;
 
@@ -77,7 +77,7 @@ export const Search = () => {
                   src={getSearchImageUrl(movie.posterUrl || movie.imageUrl)}
                   className="w-8 h-10 object-cover rounded bg-zinc-200 dark:bg-zinc-800"
                   alt={movie.title}
-                  onError={(e: any) => {
+                  onError={(e) => {
                     e.target.src = "https://via.placeholder.com/32x40?text=No";
                   }}
                 />

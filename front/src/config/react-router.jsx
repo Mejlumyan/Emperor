@@ -1,5 +1,4 @@
 import { Navigate, Outlet } from "react-router-dom";
-import type { JSX } from "react";
 import { Register } from "../pages/auth/register/Register";
 import { Login } from "../pages/auth/login/Login";
 import { CinemaLayout } from "../pages/CinemaLayout";

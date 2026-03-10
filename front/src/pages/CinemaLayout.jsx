@@ -27,7 +27,7 @@ export const CinemaLayout = () => {
   const { t, i18n } = useTranslation();
   const [isAdmin, setIsAdmin] = useState(false);
   const [userName, setUserName] = useState("");
-  const [balance, setBalance] = useState<number>(0);
+  const [balance, setBalance] = useState(0);
   const [isDark, setIsDark] = useState(
     () => localStorage.getItem("theme") !== "light",
   );
@@ -37,7 +37,7 @@ export const CinemaLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const changeLanguage = (lng: string) => i18n.changeLanguage(lng);
+  const changeLanguage = (lng) => i18n.changeLanguage(lng);
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
@@ -67,7 +67,7 @@ export const CinemaLayout = () => {
     const token = localStorage.getItem("accessToken");
     if (token) {
       try {
-        const decoded = jwtDecode<any>(token);
+        const decoded = jwtDecode(token);
         setIsAdmin(decoded.role === "admin");
         const userStr = localStorage.getItem("user");
         if (userStr) {
@@ -341,7 +341,7 @@ export const CinemaLayout = () => {
   );
 };
 
-const TopNavLink = ({ to, icon, label, active = false }: any) => (
+const TopNavLink = ({ to, icon, label, active = false }) => (
   <Link to={to}>
     <motion.div
       whileHover={{ y: -2 }}

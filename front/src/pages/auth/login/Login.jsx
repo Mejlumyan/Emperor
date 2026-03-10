@@ -8,11 +8,11 @@ import { useTranslation } from "react-i18next";
 
 export const Login = () => {
   const { t } = useTranslation();
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-  const [isLocked, setIsLocked] = useState<boolean>(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [isLocked, setIsLocked] = useState(false);
 
   const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ export const Login = () => {
   const cinemaBackground =
     "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070&auto=format&fit=crop";
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (isLocked) return; // Արգելափակում ենք հարցումը, եթե լոկ է
 
@@ -36,7 +36,7 @@ export const Login = () => {
       const response = await Axios.post("/auth/login", { email, password });
       localStorage.setItem("accessToken", response.data.accessToken);
       window.location.href = "/";
-    } catch (err: any) {
+    } catch (err) {
       const errorMessage = err.response?.data?.error || t("invalid_credentials");
       setError(errorMessage);
 
@@ -54,7 +54,7 @@ export const Login = () => {
     }
   };
 
-  const handleGoogleSuccess = async (credentialResponse: any) => {
+  const handleGoogleSuccess = async (credentialResponse) => {
     try {
       setLoading(true);
       setError("");
@@ -67,7 +67,7 @@ export const Login = () => {
         localStorage.setItem("accessToken", res.data.accessToken);
         window.location.href = "/";
       }
-    } catch (err: any) {
+    } catch (err) {
       setError(err.response?.data?.message || t("google_login_failed"));
     } finally {
       setLoading(false);

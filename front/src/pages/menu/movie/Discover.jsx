@@ -7,8 +7,8 @@ import { useMovieTranslation } from "../../../hooks/useMovieTranslation";
 const GENRES = ["Action", "Fighter", "Crime", "Fantastic", "Hard Science Fiction", "Comedy", "Horror", "Drama"];
 
 export const Discover = () => {
-  const [allMovies, setAllMovies] = useState<any[]>([]);
-  const [filteredMovies, setFilteredMovies] = useState<any[]>([]);
+  const [allMovies, setAllMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState("All");
   const [loading, setLoading] = useState(true);
   const [genreIndex, setGenreIndex] = useState(0);
@@ -41,14 +41,14 @@ export const Discover = () => {
     }
   }, [selectedGenre]);
 
-  const handleGenreClick = (genre: string) => {
+  const handleGenreClick = (genre) => {
     setSelectedGenre(genre);
     const filtered = genre === "All" ? allMovies : allMovies.filter(m => m.genre?.toLowerCase().includes(genre.toLowerCase()));
     setFilteredMovies(filtered);
     if (genre !== "All") setGenreIndex(GENRES.indexOf(genre));
   };
 
-  const getImageUrl = (path: string) => {
+  const getImageUrl = (path) => {
     if (!path) return "";
     const cleanPath = path.replace("/not/", "/");
     return `${API_URL}${cleanPath.startsWith("/") ? cleanPath : `/${cleanPath}`}`;

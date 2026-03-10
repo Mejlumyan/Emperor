@@ -4,15 +4,7 @@ import { CARD_CONFIG, CardName } from "../../types/type";
 import { getCardType } from "../../utils/utils";
 import { Amex, CardIcon, MasterCard, Visa } from "./CustomIcons";
 
-interface Props {
-  name: string;
-  number: string;
-  expiry: string;
-  cvc: string;
-  isCvcFocused: boolean;
-}
-
-export const Card = ({ name, number, expiry, cvc, isCvcFocused }: Props) => {
+export const Card = ({ name, number, expiry, cvc, isCvcFocused }) => {
   // Օպտիմիզացնում ենք քարտի տեսակի որոշումը useMemo-ի միջոցով
   const cardType = useMemo(() => getCardType(number, CARD_CONFIG), [number]);
 

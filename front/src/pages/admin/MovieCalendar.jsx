@@ -15,33 +15,11 @@ import {
 } from "@heroicons/react/24/outline";
 import { API_URL } from "../../config/axios";
 
-interface Movie {
-  _id: string;
-  title: string;
-  genre: string;
-  releaseDate: string;
-  showTime?: string;
-  cinema: string;
-  cinemaName?: string;
-  cinemaNumbering?: number;
-  posterUrl?: string;
-  imageUrl?: string;
-  price: number;
-  description?: string;
-  rating?: number;
-}
-
-interface Cinema {
-  _id: string;
-  numbering: number;
-  name?: string;
-}
-
 const MovieCalendar = () => {
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const [cinemas, setCinemas] = useState<Cinema[]>([]);
+  const [movies, setMovies] = useState([]);
+  const [cinemas, setCinemas] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const [selectedMovie, setSelectedMovie] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -59,8 +37,8 @@ const MovieCalendar = () => {
       const moviesData = moviesRes.data.data || moviesRes.data;
       const cinemasData = cinemasRes.data.data || cinemasRes.data;
 
-      const moviesWithCinemaNames = moviesData.map((movie: Movie) => {
-        const cinema = cinemasData.find((c: Cinema) => c._id === movie.cinema);
+      const moviesWithCinemaNames = moviesData.map((movie) => {
+        const cinema = cinemasData.find((c) => c._id === movie.cinema);
         return {
           ...movie,
           cinemaName: cinema?.name || `Hall ${cinema?.numbering}`,
@@ -77,7 +55,7 @@ const MovieCalendar = () => {
     }
   };
 
-  const getDaysInMonth = (date: Date) => {
+  const getDaysInMonth = (date) => {
     const year = date.getFullYear();
     const month = date.getMonth();
     const firstDay = new Date(year, month, 1);
@@ -96,7 +74,7 @@ const MovieCalendar = () => {
     return days;
   };
 
-  const getMoviesForDate = (date: Date) => {
+  const getMoviesForDate = (date) => {
     const dateStr = date.toISOString().split('T')[0];
     return movies.filter(movie => {
       const movieDate = new Date(movie.releaseDate).toISOString().split('T')[0];
@@ -104,7 +82,7 @@ const MovieCalendar = () => {
     });
   };
 
-  const navigateMonth = (direction: 'prev' | 'next') => {
+  const navigateMonth = (direction) => {
     setCurrentDate(prev => {
       const newDate = new Date(prev);
       if (direction === 'prev') {
@@ -116,7 +94,7 @@ const MovieCalendar = () => {
     });
   };
 
-  const getImageUrl = (path: string) => {
+  const getImageUrl = (path) => {
     if (!path) return "";
     if (path.startsWith("http")) return path;
     const cleanPath = path.replace("/not/", "/");
@@ -124,7 +102,7 @@ const MovieCalendar = () => {
     return `${API_URL}${finalPath}`;
   };
 
-  const handleMovieClick = (movie: Movie) => {
+  const handleMovieClick = (movie) => {
     setSelectedMovie(movie);
     setIsModalOpen(true);
   };

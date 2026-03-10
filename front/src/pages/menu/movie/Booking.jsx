@@ -17,15 +17,15 @@ import { CreditCardForm } from "../../components/CreditCardForm";
 import { useTranslation } from "react-i18next";
 
 export const Booking = () => {
-  const { cinemaId, id } = useParams<{ cinemaId: string; id: string }>(); // id-ն այստեղ movieId-ն է
+  const { cinemaId, id } = useParams(); // id-ն այստեղ movieId-ն է
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const [cinema, setCinema] = useState<any>(null);
-  const [movie, setMovie] = useState<any>(null);
+  const [cinema, setCinema] = useState(null);
+  const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [selectedSeats, setSelectedSeats] = useState<any[]>([]);
+  const [selectedSeats, setSelectedSeats] = useState([]);
   const [gridSize, setGridSize] = useState({ cols: 0, rows: 0 });
   const [showTopUp, setShowTopUp] = useState(false);
 
@@ -46,8 +46,8 @@ export const Booking = () => {
         setMovie(movieRes.data.data || movieRes.data);
 
         if (cinemaData?.seats?.length > 0) {
-          const max_x = Math.max(...cinemaData.seats.map((s: any) => s.x));
-          const max_y = Math.max(...cinemaData.seats.map((s: any) => s.y));
+          const max_x = Math.max(...cinemaData.seats.map((s) => s.x));
+          const max_y = Math.max(...cinemaData.seats.map((s) => s.y));
           setGridSize({ cols: max_x + 1, rows: max_y + 1 });
         }
       } catch (err) {
@@ -59,7 +59,7 @@ export const Booking = () => {
     fetchData();
   }, [cinemaId, id, t]);
 
-  const toggleSeat = (seat: any) => {
+  const toggleSeat = (seat) => {
     // 🛡️ Strict Block: Եթե տեղը զբաղված է տվյալ ֆիլմի համար
     if (seat.isBooked) return;
 
@@ -113,7 +113,7 @@ export const Booking = () => {
         toast.success(t("booking_successful"));
         navigate("/profile/payments");
       }
-    } catch (error: any) {
+    } catch (error) {
       toast.error(error.response?.data?.message || t("payment_failed"));
     } finally {
       setIsProcessing(false);
@@ -176,7 +176,7 @@ export const Booking = () => {
             gap: "15px",
           }}
         >
-          {cinema?.seats?.map((seat: any) => {
+          {cinema?.seats?.map((seat) => {
             const isSelected = selectedSeats.some((s) => s._id === seat._id);
             // 🔥 Հիմա օգտագործում ենք Backend-ից եկած isBooked դաշտը
             const isBooked = seat.isBooked;

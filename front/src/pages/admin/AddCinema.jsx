@@ -8,10 +8,6 @@ const FrontViewSeat = ({
   type,
   isSelected,
   seatTypes,
-}: {
-  type?: keyof typeof seatTypes;
-  isSelected: boolean;
-  seatTypes: any;
 }) => {
   const currentType = type ? seatTypes[type] : null;
 
@@ -54,10 +50,8 @@ const FrontViewSeat = ({
 export const AddCinema = () => {
   const { t } = useTranslation();
   const [hallNumber, setHallNumber] = useState("");
-  const [selectedType, setSelectedType] = useState<"NORMAL" | "MEDIUM" | "VIP">(
-    "NORMAL",
-  );
-  const [layout, setLayout] = useState<Record<string, any>>({});
+  const [selectedType, setSelectedType] = useState("NORMAL");
+  const [layout, setLayout] = useState({});
   const [loading, setLoading] = useState(false);
 
   const SEAT_TYPES = {
@@ -87,7 +81,7 @@ export const AddCinema = () => {
   const rows = 10;
   const cols = 12;
 
-  const toggleSeat = (r: number, c: number) => {
+  const toggleSeat = (r, c) => {
     const key = `${r}-${c}`;
     const newLayout = { ...layout };
     if (newLayout[key]) delete newLayout[key];
@@ -154,7 +148,7 @@ export const AddCinema = () => {
               </div>
 
               <div className="space-y-3">
-                {(Object.keys(SEAT_TYPES) as Array<keyof typeof SEAT_TYPES>).map(
+                {Object.keys(SEAT_TYPES).map(
                   (type) => (
                     <button
                       key={type}

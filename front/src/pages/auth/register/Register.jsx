@@ -7,18 +7,18 @@ import { useTranslation } from "react-i18next";
 
 export const Register = () => {
   const { t } = useTranslation();
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const cinemaBackground =
     "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070&auto=format&fit=crop";
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
@@ -33,7 +33,7 @@ export const Register = () => {
       const { accessToken } = response.data;
       localStorage.setItem("accessToken", accessToken);
       navigate("/login");
-    } catch (err: any) {
+    } catch (err) {
       setError(err.response?.data?.err || t("registration_failed"));
     } finally {
       setLoading(false);

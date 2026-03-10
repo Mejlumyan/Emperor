@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Clock, CheckCircle2, Receipt, Wallet, Film } from "lucide-react";
 
 // --- IMAGE URL HELPER ---
-const getImageUrl = (path: string, isHeroBanner: boolean = false) => {
+const getImageUrl = (path, isHeroBanner = false) => {
   if (!path) return "";
   if (path.startsWith("http")) return path;
   let finalPath = path.startsWith("/") ? path : `/${path}`;
@@ -20,9 +20,9 @@ const getImageUrl = (path: string, isHeroBanner: boolean = false) => {
 };
 
 // --- PAYMENT ITEM COMPONENT ---
-export const PaymentItem = ({ tx, index }: { tx: any; index: number }) => {
+export const PaymentItem = ({ tx, index }) => {
   const { t } = useTranslation();
-  const [movie, setMovie] = useState<any>(
+  const [movie, setMovie] = useState(
     tx.movie && typeof tx.movie === "object" ? tx.movie : null,
   );
   const isBooking = tx.amount < 0;
@@ -132,7 +132,7 @@ export const PaymentItem = ({ tx, index }: { tx: any; index: number }) => {
 // --- MAIN PAGE COMPONENT ---
 const PaymentHistory = () => {
   const { t } = useTranslation();
-  const [history, setHistory] = useState<any[]>([]);
+  const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
