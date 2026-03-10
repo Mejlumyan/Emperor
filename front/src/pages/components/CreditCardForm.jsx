@@ -1,6 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useMemo,
-  useState, } from "react";
+import { useMemo, useState } from "react";
 import { Card } from "./Card";
 import { CARD_CONFIG, INPUT_CONFIG } from "../../types/type";
 import { formatCVC, formatCreditCardNumber, formatExpirationDate } from "../../utils/utils";

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Axios } from "../../config/axios";
+import { Axios } from "../config/axios";
 
 export const useDeleteMovie = () => {
   const [loading, setLoading] = useState(false);
