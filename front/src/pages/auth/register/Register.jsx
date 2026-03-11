@@ -17,8 +17,7 @@ export const Register = () => {
   const navigate = useNavigate();
 
   const cinemaBackground =
-    "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070&auto=format&fit=crop";
-
+  "https://www.publicdomainpictures.net/pictures/300000/nahled/cinema-movie.jpg"
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
