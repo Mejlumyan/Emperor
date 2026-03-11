@@ -24,11 +24,11 @@ export const Login = () => {
   }, [navigate]);
 
   const cinemaBackground =
-    "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070&auto=format&fit=crop";
+    "https://open-stand.org/wp-content/uploads/2016/04/International-Union-of-Cinemas-Calls-for-Open-Standards-in-the-Cinema-Industry.jpg";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isLocked) return; // Արգելափակում ենք հարցումը, եթե լոկ է
+    if (isLocked) return;
 
     setError("");
     setLoading(true);
@@ -40,13 +40,11 @@ export const Login = () => {
       const errorMessage = err.response?.data?.error || t("invalid_credentials");
       setError(errorMessage);
 
-      // Եթե սխալը պարունակում է "locked" կամ "blocked", նշանակում է 3 անգամ սխալվել է
       if (
         errorMessage.toLowerCase().includes("locked") ||
         errorMessage.toLowerCase().includes("blocked")
       ) {
         setIsLocked(true);
-        // 3 րոպե հետո ավտոմատ բացել կոճակը Frontend-ում
         setTimeout(() => setIsLocked(false), 180000);
       }
     } finally {
@@ -92,17 +90,12 @@ export const Login = () => {
       >
         <div className="bg-black/60 backdrop-blur-2xl border border-white/10 p-8 md:p-10 rounded-[2.5rem] shadow-2xl">
           <div className="text-center mb-8">
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              className="bg-red-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl shadow-red-600/40"
-            >
-              <Ticket className="text-white w-9 h-9" />
-            </motion.div>
+           
             <h1 className="text-4xl font-black text-white tracking-tighter uppercase italic">
-              CINEMA<span className="text-red-600">TIC</span>
+              FILM<span className="text-yellow-600">IFY</span>
             </h1>
             <p className="text-gray-400 text-[10px] tracking-[0.3em] uppercase mt-2 font-bold">
-              {t("premium_experience")}
+              Just Enjoy the Show
             </p>
           </div>
 
@@ -137,7 +130,7 @@ export const Login = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={isLocked}
                   className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-4 py-4 text-white focus:outline-none focus:border-red-600/50 transition-all text-sm disabled:opacity-50"
-                  placeholder={t("email_address")}
+                  placeholder="email"
                   required
                 />
               </div>
@@ -153,7 +146,7 @@ export const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={isLocked}
                   className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-4 py-4 text-white focus:outline-none focus:border-red-600/50 transition-all text-sm disabled:opacity-50"
-                  placeholder={t("password")}
+                  placeholder="password"
                   required
                 />
               </div>
@@ -181,9 +174,6 @@ export const Login = () => {
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-white/10"></div>
             </div>
-            <span className="relative bg-[#0d0d0d] px-4 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">
-              {t("instant_entry")}
-            </span>
           </div>
 
           <div className="flex justify-center">
@@ -201,9 +191,9 @@ export const Login = () => {
               to="/register"
               className="text-gray-400 text-xs font-bold hover:text-white transition-colors uppercase tracking-widest"
             >
-              {t("new_critic")}{" "}
+              have no account?
               <span className="text-red-600 ml-1 underline decoration-2 underline-offset-4">
-                {t("join_the_club")}
+                Join us
               </span>
             </Link>
           </div>
